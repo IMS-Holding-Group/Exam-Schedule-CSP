@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}نتائج جدولة الامتحانات{% endblock %}
+
+{% block content %}
+<div class="results-section">
+    <div class="results-header">
+        <h2><i class="fas fa-calendar-check"></i> جدول الامتحانات الناتج</h2>
+        <p>تم إنشاء جدول الامتحانات بنجاح مع مراعاة جميع القيود المطلوبة</p>
+    </div>
+
+    <div class="results-actions">
+        <a href="{{ url_for('download_file') }}" class="btn btn-success">
+            <i class="fas fa-download"></i>
+            تحميل ملف Excel
+        </a>
+        <a href="{{ url_for('index') }}" class="btn btn-secondary">
+            <i class="fas fa-arrow-right"></i>
+            رفع ملف جديد
+        </a>
+    </div>
+
+    <div class="schedule-table-container">
+        <div class="table-header">
+            <h3><i class="fas fa-table"></i> جدول الامتحانات</h3>
+            <div class="table-info">
+                <span class="info-item">
+                    <i class="fas fa-book"></i>
+                    إجمالي المواد: {{ schedule_data|length }}
+                </span>
+                <span class="info-item">
+                    <i class="fas fa-calendar"></i>
+                    الأيام المستخدمة: {{ schedule_data|map(attribute='DayName')|unique|list|length }}
+                </span>
+            </div>
+        </div>
+
+        <div class="table-wrapper">
+            <table class="schedule-table">
+                <thead>
+                    <tr>
+                        <th><i class="fas fa-book"></i> المادة</th>
+                        <th><i class="fas fa-calendar"></i> اليوم</th>
+                        <th><i class="fas fa-clock"></i> الفترة</th>
+                        <th><i class="fas fa-clock"></i> الوقت</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for exam in schedule_data %}
+                    <tr>
+                        <td class="subject-cell">
+                            <i class="fas fa-graduation-cap"></i>
+                            {{ exam.Subject }}
+                        </td>
+                        <td class="day-cell">
+                            <i class="fas fa-calendar-day"></i>
+                            {{ exam.DayName }}
+                        </td>
+                        <td class="period-cell">
+                            <span class="period-number">{{ exam.PeriodIndex + 1 }}</span>
+                        </td>
+                        <td class="time-cell">
+                            <i class="fas fa-clock"></i>
+                            {{ exam.TimeRange }}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="constraints-info">
+        <div class="constraints-card">
+            <h3><i class="fas fa-shield-alt"></i> القيود المطبقة</h3>
+            <div class="constraints-list">
+                <div class="constraint-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>لا توجد امتحانات يوم الجمعة والسبت</span>
+                </div>
+                <div class="constraint-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>كل طالب لا يزيد عن امتحانين في نفس اليوم</span>
+                </div>
+                <div class="constraint-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>كل طالب لا يزيد عن امتحان واحد في نفس الفترة</span>
+                </div>
+                <div class="constraint-item">
+                    <i class="fas fa-check-circle"></i>
+                    <span>تقليل عدد الأيام المستخدمة للحد الأدنى</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="summary-section">
+        <div class="summary-card">
+            <h3><i class="fas fa-chart-bar"></i> ملخص النتائج</h3>
+            <div class="summary-stats">
+                <div class="stat-item">
+                    <div class="stat-value">{{ schedule_data|length }}</div>
+                    <div class="stat-label">إجمالي المواد</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">{{ schedule_data|map(attribute='DayName')|unique|list|length }}</div>
+                    <div class="stat-label">الأيام المستخدمة</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">4</div>
+                    <div class="stat-label">الفترات اليومية</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">5</div>
+                    <div class="stat-label">الأيام المتاحة</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

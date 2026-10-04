@@ -1,0 +1,115 @@
+{% extends "base.html" %}
+
+{% block title %}رفع ملف التسجيلات - نظام جدولة الامتحانات{% endblock %}
+
+{% block content %}
+<div class="upload-section">
+    <div class="upload-card">
+        <div class="card-header">
+            <h2><i class="fas fa-upload"></i> رفع ملف تسجيلات الطلاب</h2>
+            <p>يرجى رفع ملف Excel يحتوي على تسجيلات الطلاب للمواد</p>
+        </div>
+
+        <div class="card-body">
+            <form action="{{ url_for('upload_file') }}" method="post" enctype="multipart/form-data" class="upload-form">
+                <div class="file-input-group">
+                    <label for="file" class="file-label">
+                        <i class="fas fa-file-excel"></i>
+                        <span class="file-text">اختر ملف Excel</span>
+                        <input type="file" id="file" name="file" accept=".xlsx,.xls" required>
+                    </label>
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-paper-plane"></i>
+                        إنشاء جدول الامتحانات
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="card-footer">
+            <div class="requirements">
+                <h3><i class="fas fa-info-circle"></i> متطلبات الملف:</h3>
+                <ul>
+                    <li><i class="fas fa-check"></i> يجب أن يكون الملف بصيغة Excel (.xlsx أو .xls)</li>
+                    <li><i class="fas fa-check"></i> يجب أن يحتوي على عمودين: <strong>Student</strong> و
+                        <strong>Subject</strong>
+                    </li>
+                    <li><i class="fas fa-check"></i> كل صف يمثل تسجيل طالب في مقرر واحد</li>
+                    <li><i class="fas fa-check"></i> الحد الأقصى لحجم الملف: 10 ميجابايت</li>
+                </ul>
+            </div>
+
+            <div class="example-section">
+                <h3><i class="fas fa-table"></i> مثال على تنسيق الملف:</h3>
+                <div class="example-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Student</th>
+                                <th>Subject</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>2021001</td>
+                                <td>رياضيات 101</td>
+                            </tr>
+                            <tr>
+                                <td>2021001</td>
+                                <td>فيزياء 101</td>
+                            </tr>
+                            <tr>
+                                <td>2021002</td>
+                                <td>رياضيات 101</td>
+                            </tr>
+                            <tr>
+                                <td>2021002</td>
+                                <td>كيمياء 101</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="info-section">
+    <div class="info-card">
+        <h3><i class="fas fa-cogs"></i> كيفية عمل النظام</h3>
+        <div class="info-steps">
+            <div class="step">
+                <div class="step-number">1</div>
+                <div class="step-content">
+                    <h4>رفع الملف</h4>
+                    <p>قم برفع ملف Excel يحتوي على تسجيلات الطلاب</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-content">
+                    <h4>معالجة البيانات</h4>
+                    <p>يقوم النظام بقراءة وتحليل بيانات التسجيلات</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-content">
+                    <h4>حل المشكلة</h4>
+                    <p>يستخدم الذكاء الاصطناعي لحل مشكلة الجدولة</p>
+                </div>
+            </div>
+            <div class="step">
+                <div class="step-number">4</div>
+                <div class="step-content">
+                    <h4>عرض النتائج</h4>
+                    <p>احصل على جدول الامتحانات الأمثل</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
