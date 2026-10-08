@@ -11,7 +11,7 @@ from config import UPLOAD_FOLDER, OUTPUT_FOLDER, ALLOWED_EXTENSIONS, MAX_CONTENT
 from solver.scheduler import solve_schedule, validate_input_file
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'exam_schedule_csp_secret_key'
+app.config['SECRET_KEY'] = ''
 app.config['MAX_CONTENT_LENGTH'] = MAX_CONTENT_LENGTH
 
 # متغيرات عامة لتخزين النتائج
